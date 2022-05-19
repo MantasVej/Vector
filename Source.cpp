@@ -30,5 +30,10 @@ int main() {
 	v.reserve(10);
 	std::cout << v.capacity() << std::endl;
 	std::cout << v.max_size() << std::endl;
+	v.resize(5);
+	Print(v);
+	v.resize(3);
+	v.resize(5, "A");
+	Print(v);
 	return 0;
 };

@@ -25,6 +25,7 @@ public:
 		v_size = other.v_size;
 		v_capacity = other.v_capacity;
 	}
+
 	vector& operator=(const vector& other) {
 		if (this == &other)
 			return *this;
@@ -122,6 +123,25 @@ public:
 			v_size--;
 			v_data[v_size].~T();
 		}
+	}
+	void resize(size_t newCapacity)
+	{
+		ReAlloc(v_capacity);
+		v_size = newCapacity;
+	}
+
+	void resize(size_t newCapacity, const T& value)
+	{
+
+		ReAlloc(newCapacity);
+
+		if (newCapacity > v_size)
+		{
+			for (int i = v_size; i < newCapacity; i++)
+				v_data[i] = value;
+		}
+
+		v_size = newCapacity;
 	}
 
 private:
