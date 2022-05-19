@@ -68,19 +68,33 @@ public:
 		v_capacity = other.v_capacity;
 		return *this;
 	}
-	T& operator[](size_t index) { 
-		if (index >= size) {
-			//klaida
-		};
-		return v_data[index]; 
+	T& operator[](size_t index) { return v_data[index]; }
+	const T& operator[](size_t index) const { return v_data[index]; }
+
+	T& at(int index)
+	{
+		if (index < 0 || v_size <= index) throw std::out_of_range("index out of range");
+		return v_data[index];
 	}
-	const T& operator[](size_t index) const { 
-		if (index >= v_size) {
-			//klaida
-		};
-		return v_data[index]; 
+	const T& at(int index) const
+	{
+		if (index < 0 || v_size <= index) throw std::out_of_range("index out of range");
+		return v_data[index];
 	}
+
+	T& front() { return v_data[0]; }
+	const T& front() const{ return v_data[0]; }
+
+	T& back() { return v_data[v_size-1]; }
+	const T& back() const{ return v_data[v_size - 1]; }
+
+	T* data() { return v_data; }
+	const T* data() const{ return v_data; }
+
 	size_t size() const{ return v_size; }
+	size_t capacity() const { return v_capacity; }
+
+	bool empty() const { return v_size == 0; }
 private:
 	void ReAlloc(size_t newCapacity) {
 

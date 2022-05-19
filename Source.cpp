@@ -20,6 +20,9 @@ int main() {
 	vector<std::string> w;
 	w = v;
 	Print(w);
+	v.at(0) = "C";
 	Print(v);
+	std::cout << v.front() << std::endl;
+	std::cout << v.back() << std::endl;
 	return 0;
 };
