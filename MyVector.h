@@ -10,8 +10,17 @@ public:
 	vector() : v_data(nullptr), v_size(0), v_capacity(0) {
 		ReAlloc(2);
 	}
-	~vector() {
-		delete[] v_data;
+
+	vector(size_t size, const T& value) {
+		ReAlloc(size);
+		v_size = size;
+		std::fill_n(v_data, v_size, value); 
+	}
+
+	vector(const std::initializer_list<T> il) {
+		ReAlloc(il.size());
+		v_size = il.size();
+		std::copy(il.begin(), il.end(), v_data);
 	}
 
 	vector(const vector& other) {
@@ -24,6 +33,10 @@ public:
 		v_data = newBlock;
 		v_size = other.v_size;
 		v_capacity = other.v_capacity;
+	}
+
+	~vector() {
+		delete[] v_data;
 	}
 
 	vector& operator=(const vector& other) {
@@ -40,6 +53,22 @@ public:
 		v_size = other.v_size;
 		v_capacity = other.v_capacity;
 		return *this;
+	}
+	vector& operator=(std::initializer_list<T> il) {
+		ReAlloc(il.size());
+		v_size = il.size();
+		std::copy(il.begin(), il.end(), v_data);
+		return *this;
+	}
+
+	void assign(size_t newCapacity, const T& value) {
+
+		ReAlloc(newCapacity);
+
+		for (int i = 0; i < newCapacity; i++)
+			v_data[i] = value;
+
+		v_size = newCapacity;
 	}
 
 	//Element access
@@ -142,6 +171,15 @@ public:
 		}
 
 		v_size = newCapacity;
+	}
+
+	void swap(vector& other)
+	{
+		using std::swap;
+
+		swap(v_size, other.v_size);
+		swap(v_capacity, other.v_capacity);
+		swap(v_data, other.v_data);
 	}
 
 private:

@@ -35,5 +35,17 @@ int main() {
 	v.resize(3);
 	v.resize(5, "A");
 	Print(v);
+	v.swap(w);
+	Print(v);
+	Print(w);
+	v.assign(3, "B");
+	Print(v);
+	vector<std::string> x{ "A", "B", "C" };
+	Print(x);
+	vector<std::string> z{2, "A"};
+	Print(z);
+	vector<std::string> p;
+	p = { "D", "F" };
+	Print(p);
 	return 0;
 };
