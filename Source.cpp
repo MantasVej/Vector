@@ -24,5 +24,11 @@ int main() {
 	Print(v);
 	std::cout << v.front() << std::endl;
 	std::cout << v.back() << std::endl;
+	std::cout << v.capacity() << std::endl;
+	v.shrink_to_fit();
+	std::cout << v.capacity() << std::endl;
+	v.reserve(10);
+	std::cout << v.capacity() << std::endl;
+	std::cout << v.max_size() << std::endl;
 	return 0;
 };
