@@ -4,7 +4,7 @@ template <typename T>
 class vector {
 
 public:
-	vector() {
+	vector() : v_data(nullptr), v_size(0), v_capacity(0) {
 		ReAlloc(2);
 	}
 	~vector() {
@@ -42,6 +42,32 @@ public:
 		new(&v_data[v_size]) T(std::forward<Args>(args)...);
 		return v_data[v_size++];
 	}
+	vector(const vector& other){
+
+		T* newBlock = new T[other.v_size];
+
+		for (size_t i = 0; i < other.v_size; i++)
+			newBlock[i] = other.v_data[i];
+
+		v_data = newBlock;
+		v_size = other.v_size;
+		v_capacity = other.v_capacity;
+	}
+	vector& operator=(const vector& other) {
+		if (this == &other)
+			return *this;
+
+		T* newBlock = new T[other.v_size];
+
+		for (size_t i = 0; i < other.v_size; i++)
+			newBlock[i] = other.v_data[i];
+
+		delete[] v_data;
+		v_data = newBlock;
+		v_size = other.v_size;
+		v_capacity = other.v_capacity;
+		return *this;
+	}
 	T& operator[](size_t index) { 
 		if (index >= size) {
 			//klaida
@@ -58,8 +84,6 @@ public:
 private:
 	void ReAlloc(size_t newCapacity) {
 
-		std::cout << "alloc" << std::endl;
-
 		T* newBlock = new T[newCapacity];
 
 		if (newCapacity < v_size) {
@@ -74,7 +98,7 @@ private:
 		v_capacity = newCapacity;
 	}
 private:
-	T* v_data = nullptr;
-	size_t v_size = 0;
-	size_t v_capacity = 0;
+	T* v_data;
+	size_t v_size;
+	size_t v_capacity;
 };
