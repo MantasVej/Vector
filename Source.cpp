@@ -51,5 +51,8 @@ int main() {
 	std::cout << p.end() << std::endl;
 	for(auto elem : p)
 		std::cout << elem << std::endl;
+
+	for (vector<std::string>::iterator it = p.begin(); it != p.end(); it++)
+		std::cout << *it << std::endl;
 	return 0;
 };
