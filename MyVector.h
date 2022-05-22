@@ -5,6 +5,11 @@ class vector {
 
 public:
 
+	typedef T* iterator;
+	typedef const T* const_iterator;
+	typedef std::reverse_iterator<iterator> reverse_iterator;
+	typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+
 	//Member functions
 
 	vector() : v_data(nullptr), v_size(0), v_capacity(0) {
@@ -115,6 +120,23 @@ public:
 	}
 
 	size_t capacity() const { return v_capacity; }
+	
+	//Iterators
+	
+	iterator begin() { return v_data; }
+	const_iterator begin() const { return v_data; }
+	const_iterator cbegin() const { return v_data; }
+
+	iterator end() { return v_data + v_size; }
+	const_iterator end() const { return v_data + v_size; }
+	const_iterator cend() const { return v_data + v_size; }
+
+	reverse_iterator rbegin() {return reverse_iterator(end());}
+	const_reverse_iterator crbegin() const { return reverse_iterator(end()); }
+
+	reverse_iterator rend() { return reverse_iterator(begin()); }
+	const_reverse_iterator crend() const { return reverse_iterator(begin()); }
+
 
 	//Modifiers
 

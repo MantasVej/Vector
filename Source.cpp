@@ -47,5 +47,9 @@ int main() {
 	vector<std::string> p;
 	p = { "D", "F" };
 	Print(p);
+	std::cout << p.begin() << std::endl;
+	std::cout << p.end() << std::endl;
+	for(auto elem : p)
+		std::cout << elem << std::endl;
 	return 0;
 };
