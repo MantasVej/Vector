@@ -121,6 +121,20 @@ public:
 		uncreate();
 	}
 
+	iterator erase(const iterator pos) {
+		std::move(pos + 1, end(), pos);
+		resize(size() - 1);
+		return pos;
+	}
+
+	iterator erase(iterator first, iterator last) {
+		const size_t n = last - first;
+		iterator iter = &values[first - values];
+		std::move(last, end(), first);
+		resize(size() - n);
+		return iter;
+	}
+
 	void push_back(const T& value) {
 		if (avail == limit)
 			grow();

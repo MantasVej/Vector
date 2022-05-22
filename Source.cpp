@@ -42,17 +42,27 @@ int main() {
 	Print(v);
 	vector<std::string> x{ "A", "B", "C" };
 	Print(x);
-	vector<std::string> z{2, "A"};
+	vector<std::string> z{ 2, "A" };
 	Print(z);
 	vector<std::string> p;
 	p = { "D", "F" };
 	Print(p);
 	std::cout << p.begin() << std::endl;
 	std::cout << p.end() << std::endl;
-	for(auto elem : p)
+	for (auto elem : p)
 		std::cout << elem << std::endl;
 
 	for (vector<std::string>::iterator it = p.begin(); it != p.end(); it++)
 		std::cout << *it << std::endl;
+	x.push_back("D");
+	x.push_back("E");
+	x.push_back("F");
+	x.push_back("G");
+	std::cout << "--------------------" << std::endl;
+	Print(x);
+	x.erase(x.begin()+2);
+	Print(x);
+	x.erase(x.begin(), x.begin()+3);
+	Print(x);
 	return 0;
 };
