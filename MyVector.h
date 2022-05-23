@@ -121,6 +121,69 @@ public:
 		uncreate();
 	}
 
+	void insert(const iterator pos, const T& value){
+		int index = pos - values;
+		if (index < 0 || size() < index) throw std::out_of_range("index out of range");
+
+		if (avail == limit)
+			grow();
+
+		for (int i = size() - 1; i >= index; --i)
+			values[i + 1] = std::move(values[i]);
+
+		values[index] = value;
+		avail++;
+	}
+
+	iterator insert(const_iterator pos, size_type count, const T& value) {
+		int index = pos - values;
+		if (index < 0 || size() < index) throw std::out_of_range("index out of range");
+
+		resize(size() + count);
+
+		for (int i = size() - 1; i >= index + count; i--)
+			values[i] = std::move(values[i-count]);
+
+		for (int i = index + count - 1; i >= index; i--)
+			values[i] = value;
+		return &values[index];
+	}
+
+	template< class InputIt >
+	iterator insert(const_iterator pos, InputIt first, InputIt last) {
+		int index = pos - values;
+		if (index < 0 || size() < index) throw std::out_of_range("index out of range");
+
+		int sz = last - first;
+		resize(size() + sz);
+
+		for (int i = size() - 1; i >= index + sz ; --i)
+			values[i] = std::move(values[i - sz]);
+
+		int count = 0;
+		for (int i = index + sz - 1; i >= index; --i) {
+			values[i] = first[count++];
+		}
+		return &values[index];
+	}
+
+	iterator insert(const_iterator pos, std::initializer_list<T> il) {
+		int index = pos - values;
+		if (index < 0 || size() < index) throw std::out_of_range("index out of range");
+
+		int sz = il.size();
+		resize(size() + sz);
+
+		for (int i = size() - 1; i >= index + sz; --i)
+			values[i] = std::move(values[i - sz]);
+
+		int count = sz-1;
+		for (int i = index + sz - 1; i >= index; --i) {
+			values[i] = il.begin()[count--];
+		}
+		return &values[index];
+	}
+
 	iterator erase(const iterator pos) {
 		std::move(pos + 1, end(), pos);
 		resize(size() - 1);
@@ -149,6 +212,7 @@ public:
 	}
 
 	template<typename... Args>
+
 	T& emplace_back(Args&&... args) {
 		if (avail == limit)
 			grow();

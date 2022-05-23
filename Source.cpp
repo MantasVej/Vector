@@ -42,7 +42,7 @@ int main() {
 	Print(v);
 	vector<std::string> x{ "A", "B", "C" };
 	Print(x);
-	vector<std::string> z{ 2, "A" };
+	vector<std::string> z{ 2, "K" };
 	Print(z);
 	vector<std::string> p;
 	p = { "D", "F" };
@@ -63,6 +63,14 @@ int main() {
 	x.erase(x.begin()+2);
 	Print(x);
 	x.erase(x.begin(), x.begin()+3);
+	Print(x);
+	x.insert(x.begin(), "A");
+	Print(x);
+	x.insert(x.begin()+1, 5, "B");
+	Print(x);
+	x.insert(x.begin()+3, z.begin(), z.end());
+	Print(x);
+	x.insert(x.begin() + 5, {"H", "I", "J"});
 	Print(x);
 	return 0;
 };
