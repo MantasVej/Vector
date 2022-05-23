@@ -43,6 +43,16 @@ public:
 		create(n, t);
 	}
 
+	template< class InputIt >
+	void assign(InputIt first, InputIt last) {
+		uncreate();
+		create(first, last);
+	}
+	void assign(std::initializer_list<T> il) {
+		uncreate();
+		create(il.begin(), il.end());
+	}
+
 	//Element access
 
 	T& at(int index)

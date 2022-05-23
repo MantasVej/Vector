@@ -42,6 +42,10 @@ int main() {
 	Print(v);
 	vector<std::string> x{ "A", "B", "C" };
 	Print(x);
+	v.assign(x.begin(), x.end());
+	Print(v);
+	v.assign({"D", "E", "F"});
+	Print(v);
 	vector<std::string> z{ 2, "K" };
 	Print(z);
 	vector<std::string> p;
