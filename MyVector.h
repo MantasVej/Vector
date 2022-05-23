@@ -223,6 +223,23 @@ public:
 
 	template<typename... Args>
 
+	iterator emplace(const_iterator pos, Args&&... args) {
+		int index = pos - values;
+		if (index < 0 || size() < index) throw std::out_of_range("index out of range");
+
+		if (avail == limit)
+			grow();
+
+		alloc.construct(avail++, std::forward<Args>(args)...);
+
+		for (int i = size() - 1; i >= index+1; --i) 
+			std::swap(values[i], values[i-1]);
+			
+		return &values[index];
+	}
+
+	template<typename... Args>
+
 	T& emplace_back(Args&&... args) {
 		if (avail == limit)
 			grow();
@@ -273,6 +290,22 @@ public:
 		swap(avail, other.avail);
 		swap(limit, other.limit);
 	}
+
+	friend bool operator==(const vector& lhs, const vector& rhs) {
+		if (lhs.size() != rhs.size())
+			return false;
+
+		for (int i = 0; i < lhs.size(); ++i)
+			if (lhs.values[i] != rhs.values[i])
+				return false;
+
+		return true;
+	}
+
+	friend bool operator!=(const vector& lhs, const vector& rhs) {
+		return !(lhs == rhs);
+	}
+
 
 private:
 

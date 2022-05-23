@@ -14,13 +14,16 @@ int main() {
 	v.pop_back();
 	v.emplace_back("E");
 	v.emplace_back("B");
+	v.emplace(v.begin() + 1, "W");
 	Print(v);
 	vector<std::string> y(v);
 	Print(y);
 	vector<std::string> w;
 	w = v;
 	Print(w);
+	std::cout << (w == v) << std::endl;
 	v.at(0) = "C";
+	std::cout << (w != v) << std::endl;
 	Print(v);
 	std::cout << v.front() << std::endl;
 	std::cout << v.back() << std::endl;
